@@ -2,7 +2,7 @@
 
 Usage:
   buster.py setup [--gh-repo=<repo-url>] [--dir=<path>]
-  buster.py generate [--domain=<local-address>] [--dir=<path>] [--depth=<depth>]
+  buster.py generate [--domain=<local-address>] [--dir=<path>] [--depth=<recursive-depth>]
   buster.py preview [--dir=<path>]
   buster.py deploy [--dir=<path>]
   buster.py add-domain <domain-name> [--dir=<path>]
@@ -15,7 +15,7 @@ Options:
   --dir=<path>              Absolute path of directory to store static pages.
   --domain=<local-address>  Address of local ghost installation [default: local.tryghost.org].
   --gh-repo=<repo-url>      URL of your gh-pages repository.
-  --depth=<recursive_depth> Depth of wget recursion
+  --depth=<recursive-depth> Depth of wget recursion
 """
 
 import os
