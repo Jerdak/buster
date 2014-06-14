@@ -2,7 +2,7 @@
 
 Usage:
   buster.py setup [--gh-repo=<repo-url>] [--dir=<path>]
-  buster.py generate [--domain=<local-address>] [--dir=<path>]
+  buster.py generate [--domain=<local-address>] [--dir=<path>] [--depth=<depth>]
   buster.py preview [--dir=<path>]
   buster.py deploy [--dir=<path>]
   buster.py add-domain <domain-name> [--dir=<path>]
@@ -15,6 +15,7 @@ Options:
   --dir=<path>              Absolute path of directory to store static pages.
   --domain=<local-address>  Address of local ghost installation [default: local.tryghost.org].
   --gh-repo=<repo-url>      URL of your gh-pages repository.
+  --depth=<recursive_depth> Depth of wget recursion
 """
 
 import os
@@ -35,6 +36,8 @@ def main():
     else:
         static_path = os.path.join(os.getcwd(), 'static')
 
+    arguments['--depth'] = arguments['--depth'] if ('--depth' in arguments) else 5
+
     if arguments['generate']:
         command = ("wget \\"
                    "--recursive \\"             # follow links to download entire site
@@ -43,7 +46,8 @@ def main():
                    "--no-parent \\"             # don't go to parent level
                    "--directory-prefix {1} \\"  # download contents to static/ folder
                    "--no-host-directories \\"   # don't create domain named folder
-                   "{0}").format(arguments['--domain'], static_path)
+                   "--level={2} \\"
+                   "{0}").format(arguments['--domain'], static_path,arguments['--depth'])
         os.system(command)
 
         # remove query string since Ghost 0.4
