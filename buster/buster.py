@@ -15,7 +15,7 @@ Options:
   --dir=<path>              Absolute path of directory to store static pages.
   --domain=<local-address>  Address of local ghost installation [default: local.tryghost.org].
   --gh-repo=<repo-url>      URL of your gh-pages repository.
-  --depth=<recursive-depth> Depth of wget recursion
+  --depth=<recursive-depth> Depth of wget recursion  [Default: 5]
 """
 
 import os
@@ -35,8 +35,6 @@ def main():
         static_path = arguments['--dir']
     else:
         static_path = os.path.join(os.getcwd(), 'static')
-
-    arguments['--depth'] = arguments['--depth'] if ('--depth' in arguments) else 5
 
     if arguments['generate']:
         command = ("wget \\"
